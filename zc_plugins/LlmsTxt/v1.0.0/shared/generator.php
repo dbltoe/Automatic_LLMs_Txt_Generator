@@ -114,6 +114,7 @@ function llmstxt_settings()
         'max_products' => $int('LLMSTXT_MAX_PRODUCTS', 200),
         'product_order' => $choice('LLMSTXT_PRODUCT_ORDER', ['sort', 'newest', 'bestsellers', 'name', 'viewed'], 'sort'),
         'prices' => $bool('LLMSTXT_INCLUDE_PRICES', true),
+        'brands' => $bool('LLMSTXT_INCLUDE_BRANDS', true),
         'ezpages' => $bool('LLMSTXT_INCLUDE_EZPAGES', true),
         'sitemap' => trim((string)llmstxt_cfg('LLMSTXT_SITEMAP_URL', '')),
         'description_length' => max(40, $int('LLMSTXT_DESCRIPTION_LENGTH', 160)),
@@ -316,15 +317,36 @@ function llmstxt_substr($s, $start, $length)
 }
 
 /**
- * Text that will sit inside [ ] as a link label. Square brackets would end the
- * label early, so they become round ones; a newline would end the list item.
+ * Backslash-escape the characters that carry meaning inside a Markdown line,
+ * so a product called "50% off [Sale]" or "Model_K *new*" reads as written
+ * instead of turning into a link, emphasis or a tag. Only inline syntax is
+ * covered: "-", "#" and ">" matter at the start of a line, and nothing that
+ * passes through here ever starts one. CommonMark treats a backslash before
+ * any ASCII punctuation as the literal character, so the escapes are safe
+ * whichever parser reads the file.
+ *
+ * @param mixed $s
+ * @return string
+ */
+function llmstxt_escape($s)
+{
+    return str_replace(
+        ['\\', '`', '*', '_', '[', ']', '<'],
+        ['\\\\', '\\`', '\\*', '\\_', '\\[', '\\]', '\\<'],
+        (string)$s
+    );
+}
+
+/**
+ * Text that will sit inside [ ] as a link label or after "# " as a heading:
+ * one line, Markdown-escaped.
  *
  * @param mixed $s
  * @return string
  */
 function llmstxt_label($s)
 {
-    return trim(str_replace(['[', ']', "\r", "\n"], ['(', ')', ' ', ' '], (string)$s));
+    return llmstxt_escape(trim(str_replace(["\r", "\n"], ' ', (string)$s)));
 }
 
 /**
@@ -350,7 +372,7 @@ function llmstxt_url($url)
 function llmstxt_item($label, $url, $notes = '')
 {
     $line = '- [' . llmstxt_label($label) . '](' . llmstxt_url($url) . ')';
-    $notes = trim(str_replace(["\r", "\n"], ' ', (string)$notes));
+    $notes = llmstxt_escape(trim(str_replace(["\r", "\n"], ' ', (string)$notes)));
     if ($notes !== '') {
         $line .= ': ' . $notes;
     }
@@ -620,6 +642,43 @@ function llmstxt_read_products($db, $languageId, array $settings, array $visible
 }
 
 /**
+ * Manufacturers ("brands") with at least one enabled product, in name order,
+ * each with its product count. Products in hidden or excluded categories are
+ * not counted, so a brand whose only products sit in an excluded category is
+ * left out, as the products themselves are. The link is the manufacturer
+ * listing on the index page, which every release serves.
+ *
+ * @param object $db
+ * @param array  $visibleCategories  id => true, from llmstxt_category_tree()
+ * @return array
+ */
+function llmstxt_read_brands($db, array $visibleCategories)
+{
+    $brands = [];
+    $r = $db->Execute(
+        "SELECT m.manufacturers_id, m.manufacturers_name, p.master_categories_id
+           FROM " . TABLE_MANUFACTURERS . " m
+                INNER JOIN " . TABLE_PRODUCTS . " p
+                    ON p.manufacturers_id = m.manufacturers_id
+                   AND p.products_status = 1
+          ORDER BY m.manufacturers_name, m.manufacturers_id"
+    );
+    while (!$r->EOF) {
+        $id = (int)$r->fields['manufacturers_id'];
+        $name = trim((string)$r->fields['manufacturers_name']);
+        $master = (int)$r->fields['master_categories_id'];
+        if ($name !== '' && ($master === 0 || isset($visibleCategories[$master]))) {
+            if (!isset($brands[$id])) {
+                $brands[$id] = ['id' => $id, 'name' => $name, 'count' => 0];
+            }
+            $brands[$id]['count']++;
+        }
+        $r->MoveNext();
+    }
+    return array_values($brands);
+}
+
+/**
  * Published EZ-Pages that appear somewhere on the storefront, in header order.
  *
  * `status_visible` is the published flag; a page nobody has put in the header,
@@ -762,6 +821,17 @@ function llmstxt_sitemap_url(array $settings)
 }
 
 /**
+ * The address of robots.txt when the store has one, else ''. Listed so an
+ * assistant that honors crawler directives knows where they are.
+ *
+ * @return string
+ */
+function llmstxt_robots_url()
+{
+    return is_file(DIR_FS_CATALOG . 'robots.txt') ? llmstxt_catalog_base() . 'robots.txt' : '';
+}
+
+/**
  * A short string that changes whenever the listable catalog changes.
  *
  * Aggregates only, so it is cheap enough to run from the storefront. A product
@@ -789,6 +859,13 @@ function llmstxt_fingerprint($db)
           WHERE categories_status = 1"
     );
     $parts[] = 'c' . (int)$r->fields['n'] . '|' . (string)$r->fields['m'] . '|' . (string)$r->fields['a'];
+
+    $r = $db->Execute(
+        "SELECT COUNT(*) AS n, MAX(m.last_modified) AS m
+           FROM " . TABLE_MANUFACTURERS . " m"
+    );
+    $f = is_array($r->fields) ? $r->fields : [];
+    $parts[] = 'm' . (int)($f['n'] ?? 0) . '|' . (string)($f['m'] ?? '');
 
     $r = $db->Execute(
         "SELECT COUNT(*) AS n
@@ -828,19 +905,24 @@ function llmstxt_collect($db, $settings = null)
         'currency' => llmstxt_default_currency($db),
         'currency_code' => (string)llmstxt_cfg('DEFAULT_CURRENCY', ''),
         'sitemap' => llmstxt_sitemap_url($settings),
+        'robots' => llmstxt_robots_url(),
         'info_pages' => llmstxt_info_pages($settings['info_pages']),
         'categories' => [],
+        'brands' => [],
         'products' => [],
         'ezpages' => [],
     ];
 
     $visible = [];
-    if ($settings['categories'] || $settings['products']) {
+    if ($settings['categories'] || $settings['products'] || $settings['brands']) {
         $tree = llmstxt_category_tree(llmstxt_read_categories($db, $languageId), $settings);
         $visible = $tree['visible'];
         if ($settings['categories']) {
             $data['categories'] = $tree['list'];
         }
+    }
+    if ($settings['brands']) {
+        $data['brands'] = llmstxt_read_brands($db, $visible);
     }
     if ($settings['products']) {
         $data['products'] = llmstxt_read_products($db, $languageId, $settings, $visible);
@@ -908,6 +990,9 @@ function llmstxt_render(array $data, $full = false)
     if ($data['sitemap'] !== '') {
         $out[] = llmstxt_item(llmstxt_heading('LLMSTXT_LABEL_SITEMAP', 'Sitemap'), $data['sitemap']);
     }
+    if ($data['robots'] !== '') {
+        $out[] = llmstxt_item(llmstxt_heading('LLMSTXT_LABEL_ROBOTS', 'Robots'), $data['robots']);
+    }
     if (!$full && $s['full']) {
         $out[] = llmstxt_item(
             llmstxt_heading('LLMSTXT_LABEL_FULL', 'Full catalog listing'),
@@ -937,6 +1022,19 @@ function llmstxt_render(array $data, $full = false)
         $out[] = '';
     }
 
+    if ($data['brands'] !== []) {
+        $out[] = '## ' . llmstxt_heading('LLMSTXT_HEADING_BRANDS', 'Brands');
+        $out[] = '';
+        foreach ($data['brands'] as $b) {
+            $url = llmstxt_link('index', 'manufacturers_id=' . $b['id']);
+            $notes = ($b['count'] === 1)
+                ? llmstxt_heading('LLMSTXT_NOTE_BRAND_ONE', '1 product')
+                : sprintf(llmstxt_heading('LLMSTXT_NOTE_BRAND_MANY', '%d products'), $b['count']);
+            $out[] = llmstxt_item($b['name'], $url, $notes);
+        }
+        $out[] = '';
+    }
+
     if ($data['products'] !== []) {
         $out[] = '## ' . llmstxt_heading('LLMSTXT_HEADING_PRODUCTS', 'Products');
         $out[] = '';
@@ -952,7 +1050,8 @@ function llmstxt_render(array $data, $full = false)
                 $extras[] = llmstxt_heading('LLMSTXT_LABEL_MODEL', 'Model') . ' ' . $p['model'];
             }
             if ($extras !== []) {
-                $notes = ($notes === '' ? '' : $notes . ' ') . '(' . implode('; ', array_map('llmstxt_label', $extras)) . ')';
+                // Escaped once, with the rest of the notes, by llmstxt_item().
+                $notes = ($notes === '' ? '' : $notes . ' ') . '(' . implode('; ', $extras) . ')';
             }
             $out[] = llmstxt_item($p['name'], $url, $notes);
         }
@@ -994,6 +1093,7 @@ function llmstxt_build($db, $settings = null)
         'settings_hash' => llmstxt_settings_hash($settings),
         'counts' => [
             'categories' => count($data['categories']),
+            'brands' => count($data['brands']),
             'products' => count($data['products']),
             'ezpages' => count($data['ezpages']),
             'info_pages' => count($data['info_pages']),

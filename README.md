@@ -22,6 +22,7 @@ codebase**, verified against all six release branches rather than assumed. See
 - [Website](https://www.example.com/)
 - Prices are in: USD
 - [Sitemap](https://www.example.com/sitemap.xml)
+- [Robots](https://www.example.com/robots.txt)
 
 ## Shopping information
 
@@ -34,6 +35,10 @@ codebase**, verified against all six release branches rather than assumed. See
 
 - [Mixer Parts](https://www.example.com/index.php?main_page=index&cPath=1): Gears, gaskets and beaters for every model since 1937.
 - [Mixer Parts > Gaskets](https://www.example.com/index.php?main_page=index&cPath=1_4)
+
+## Brands
+
+- [Hobart](https://www.example.com/index.php?main_page=index&manufacturers_id=2): 14 products
 
 ## Products
 

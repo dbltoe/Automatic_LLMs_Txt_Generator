@@ -52,7 +52,7 @@ $define = [
 
     'LLMSTXT_ADMIN_NEVER' => 'Never.',
     'LLMSTXT_ADMIN_BUILT_AT' => '%s (%s).',
-    'LLMSTXT_ADMIN_COUNTS' => '%d information pages, %d categories, %d products, %d EZ-Pages.',
+    'LLMSTXT_ADMIN_COUNTS' => '%d information pages, %d categories, %d brands, %d products, %d EZ-Pages.',
     'LLMSTXT_ADMIN_PENDING_NONE' => 'Nothing. The published copy matches the catalog and the settings.',
     'LLMSTXT_ADMIN_PENDING_SOME' => 'A rebuild is due: %s.',
     'LLMSTXT_ADMIN_CACHE_OK' => '%s is writable.',

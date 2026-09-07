@@ -65,7 +65,7 @@ footer{margin-top:3rem;padding-top:1.25rem;border-top:1px solid var(--rule);
     By My Zen Cart Host (dbltoe) &nbsp;&middot;&nbsp;
     Version 1.0.0 &nbsp;&middot;&nbsp; Zen Cart v1.5.8 &ndash; v3.0.0 &nbsp;&middot;&nbsp;
     PHP 7.4 &ndash; 8.5 &nbsp;&middot;&nbsp; GPL-2.0 &nbsp;&middot;&nbsp;
-    <a href="https://github.com/dbltoe/LLMs_Txt_Generator" target="_blank" rel="noopener noreferrer">github.com/dbltoe/LLMs_Txt_Generator</a>
+    <a href="https://github.com/dbltoe/Automatic_LLMs_Txt_Generator" target="_blank" rel="noopener noreferrer">github.com/dbltoe/Automatic_LLMs_Txt_Generator</a>
   </p>
 </header>
 
@@ -103,6 +103,7 @@ footer{margin-top:3rem;padding-top:1.25rem;border-top:1px solid var(--rule);
 - [Website](https://www.example.com/)
 - Prices are in: USD
 - [Sitemap](https://www.example.com/sitemap.xml)
+- [Robots](https://www.example.com/robots.txt)
 
 ## Shopping information
 
@@ -116,6 +117,10 @@ footer{margin-top:3rem;padding-top:1.25rem;border-top:1px solid var(--rule);
 - [Mixer Parts](https://www.example.com/index.php?main_page=index&amp;cPath=1): Gears, gaskets and beaters for every model since 1937.
 - [Mixer Parts &gt; Gaskets](https://www.example.com/index.php?main_page=index&amp;cPath=1_4)
 
+## Brands
+
+- [Hobart](https://www.example.com/index.php?main_page=index&amp;manufacturers_id=2): 14 products
+
 ## Products
 
 - [Planetary Gear, Model K](https://www.example.com/index.php?main_page=product_info&amp;products_id=12): Bronze replacement gear for the Model K. Fits 1948 to 1962. ($24.95)
@@ -125,7 +130,9 @@ footer{margin-top:3rem;padding-top:1.25rem;border-top:1px solid var(--rule);
 - [About Us](https://www.example.com/index.php?main_page=page&amp;id=3)
 </code></pre>
 
-<p>Every part of that comes from somewhere you already maintain: the store name, the shipping and policy pages, the category tree, enabled products with their meta-tag or body descriptions and base prices, and your published EZ-Pages. The one thing worth writing by hand is the summary in the blockquote, because it's the first sentence an assistant reads. There is a setting for it.</p>
+<p>Every part of that comes from somewhere you already maintain: the store name, the shipping and policy pages, the category tree, your brands with a product count each, enabled products with their meta-tag or body descriptions and base prices, and your published EZ-Pages. The sitemap and <code>robots.txt</code> are linked when the store has them. The one thing worth writing by hand is the summary in the blockquote, because it's the first sentence an assistant reads. There is a setting for it.</p>
+
+<p>Names and descriptions are Markdown-escaped on the way out, so a product called "50% off [Sale]" or a brand called "Model_K" reads as written instead of turning into a broken link or stray italics. Your own summary and notes are the exception: they're passed through as you wrote them, Markdown included.</p>
 
 <p>Optionally it also produces <code>llms-full.txt</code>, the same sections with complete descriptions, for assistants that want the detail.</p>
 
@@ -213,8 +220,9 @@ RewriteRule ^llms-full\.txt$ index.php?main_page=llms_txt&amp;full=1 [L]
 <tr><td>Product order</td><td>sort</td><td>sort (the product sort order, then name), newest, bestsellers, name, viewed.</td></tr>
 <tr><td>Show prices</td><td>true</td><td>The base price in the default currency. Specials and tax are not applied.</td></tr>
 <tr><td>Description length</td><td>160</td><td>Characters per line. The meta-tag description is used when written; otherwise the start of the body text with HTML removed.</td></tr>
+<tr><td>List brands</td><td>true</td><td>Manufacturers with at least one enabled product, each linked to its product listing with a count. A brand whose products all sit in hidden or excluded categories is left out.</td></tr>
 <tr><td>List EZ-Pages</td><td>true</td><td>Published pages that appear in the header, a sidebox, the footer or the table of contents. External-link pages point where they point.</td></tr>
-<tr><td>Sitemap address</td><td>empty</td><td>Left empty, a <code>sitemap.xml</code> at the root is linked automatically when one exists.</td></tr>
+<tr><td>Sitemap address</td><td>empty</td><td>Left empty, a <code>sitemap.xml</code> at the root is linked automatically when one exists. A <code>robots.txt</code> at the root is linked the same way; there is no setting for it.</td></tr>
 <tr><td>Language</td><td>empty</td><td>Two-letter code. Empty uses the store default.</td></tr>
 <tr><td>Also publish llms-full.txt</td><td>false</td><td>A second, longer file with complete descriptions and model numbers, linked from llms.txt.</td></tr>
 <tr><td>Full description length</td><td>1200</td><td>Characters per item in llms-full.txt.</td></tr>
@@ -243,7 +251,7 @@ RewriteRule ^llms-full\.txt$ index.php?main_page=llms_txt&amp;full=1 [L]
 
 <h2 id="robots">robots.txt</h2>
 
-<p>Nothing needs adding. If your <code>robots.txt</code> disallows <code>index.php</code> or query strings for some crawlers, they may not be allowed to fetch the live page; a real file at the root is unaffected by such rules, which is one reason <strong>file</strong> is the default.</p>
+<p>Nothing needs adding, and if you have one, <code>llms.txt</code> links to it. If your <code>robots.txt</code> disallows <code>index.php</code> or query strings for some crawlers, they may not be allowed to fetch the live page; a real file at the root is unaffected by such rules, which is one reason <strong>file</strong> is the default.</p>
 
 <h2 id="translating">Translating</h2>
 
@@ -281,7 +289,7 @@ admin/includes/languages/english/extra_definitions/lang.llms_txt_names.php
 <p>The last build ran from the admin. See <a href="#seo">SEO URL plugins</a>; the next storefront rebuild fixes it, or press nothing and wait for one.</p>
 
 <footer>
-  <p>LLMs.txt Generator v1.0.0 &middot; GPL-2.0 &middot; My Zen Cart Host (dbltoe) &middot; <a href="https://github.com/dbltoe/LLMs_Txt_Generator" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+  <p>LLMs.txt Generator v1.0.0 &middot; GPL-2.0 &middot; My Zen Cart Host (dbltoe) &middot; <a href="https://github.com/dbltoe/Automatic_LLMs_Txt_Generator" target="_blank" rel="noopener noreferrer">GitHub</a></p>
 </footer>
 
 </div>

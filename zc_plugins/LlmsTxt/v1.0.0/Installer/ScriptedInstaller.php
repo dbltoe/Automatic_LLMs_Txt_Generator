@@ -260,6 +260,14 @@ class ScriptedInstaller extends ScriptedInstallBase
                 'sort_order' => 140,
             ],
             [
+                'key' => 'LLMSTXT_INCLUDE_BRANDS',
+                'title' => 'List brands',
+                'value' => 'true',
+                'description' => 'Include each manufacturer that has an enabled product, linked to its product listing with a count. A brand whose products all sit in hidden or excluded categories is left out.',
+                'set_function' => $yesNo,
+                'sort_order' => 145,
+            ],
+            [
                 'key' => 'LLMSTXT_INCLUDE_EZPAGES',
                 'title' => 'List EZ-Pages',
                 'value' => 'true',

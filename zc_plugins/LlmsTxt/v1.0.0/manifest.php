@@ -17,7 +17,7 @@
 
 $llmstxtPluginDir = 'zc_plugins/LlmsTxt/v1.0.0/';
 $llmstxtReadmeUrl = (defined('DIR_WS_CATALOG') ? DIR_WS_CATALOG : '/') . $llmstxtPluginDir . 'readme.html';
-$llmstxtGithubUrl = 'https://github.com/dbltoe/LLMs_Txt_Generator';
+$llmstxtGithubUrl = 'https://github.com/dbltoe/Automatic_LLMs_Txt_Generator';
 
 /**
  * The Zen Cart forum support thread. SET THIS BEFORE THE FIRST RELEASE: on
@@ -49,7 +49,7 @@ return [
     'pluginDescription' =>
         'Publishes an llms.txt file for your store, the Markdown guide that AI assistants '
         . 'read to understand a website: your store name and summary, shipping and policy pages, '
-        . 'categories, products with prices, and EZ-Pages. Served live at /llms.txt or written as '
+        . 'categories, brands, products with prices, and EZ-Pages. Served live at /llms.txt or written as '
         . 'a real file at the store root, rebuilt automatically when the catalog changes, on a '
         . 'schedule, or only when you ask.'
         . $llmstxtLinks

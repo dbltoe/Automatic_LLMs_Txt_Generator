@@ -81,7 +81,7 @@ if ($action !== '') {
             if ($result['ok']) {
                 $c = $result['counts'];
                 $messageStack->add_session(
-                    sprintf(LLMSTXT_ADMIN_SUCCESS_REBUILT, sprintf(LLMSTXT_ADMIN_COUNTS, (int)$c['info_pages'], (int)$c['categories'], (int)$c['products'], (int)$c['ezpages'])),
+                    sprintf(LLMSTXT_ADMIN_SUCCESS_REBUILT, sprintf(LLMSTXT_ADMIN_COUNTS, (int)$c['info_pages'], (int)$c['categories'], (int)($c['brands'] ?? 0), (int)$c['products'], (int)$c['ezpages'])),
                     'success'
                 );
                 if ($result['wrote'] !== []) {
@@ -145,7 +145,7 @@ $rootUrl = llmstxt_catalog_base() . 'llms.txt';
 
 $previewError = '';
 $preview = '';
-$previewCounts = ['info_pages' => 0, 'categories' => 0, 'products' => 0, 'ezpages' => 0];
+$previewCounts = ['info_pages' => 0, 'categories' => 0, 'brands' => 0, 'products' => 0, 'ezpages' => 0];
 try {
     $built = llmstxt_build($db, $settings);
     $preview = $built['llms'];
@@ -258,7 +258,8 @@ if (!empty($state['counts'])) {
     $c = $state['counts'];
     echo llmstxt_status_row(
         LLMSTXT_ADMIN_ROW_CONTENTS,
-        llmstxt_h(sprintf(LLMSTXT_ADMIN_COUNTS, (int)$c['info_pages'], (int)$c['categories'], (int)$c['products'], (int)$c['ezpages']))
+        // A state file written before brands were counted has no 'brands' key.
+        llmstxt_h(sprintf(LLMSTXT_ADMIN_COUNTS, (int)$c['info_pages'], (int)$c['categories'], (int)($c['brands'] ?? 0), (int)$c['products'], (int)$c['ezpages']))
     );
 }
 if ($settings['enabled']) {
@@ -323,7 +324,7 @@ RewriteRule ^llms-full\.txt$ index.php?main_page=llms_txt&amp;full=1 [L]</pre>
     <p class="llmstxt-bad"><?= llmstxt_h(sprintf(LLMSTXT_ADMIN_ERROR_BUILD, $previewError)); ?></p>
 <?php } else { ?>
     <p><?= llmstxt_h(LLMSTXT_ADMIN_PREVIEW_INTRO); ?>
-       <?= llmstxt_h(sprintf(LLMSTXT_ADMIN_COUNTS, (int)$previewCounts['info_pages'], (int)$previewCounts['categories'], (int)$previewCounts['products'], (int)$previewCounts['ezpages'])); ?>
+       <?= llmstxt_h(sprintf(LLMSTXT_ADMIN_COUNTS, (int)$previewCounts['info_pages'], (int)$previewCounts['categories'], (int)$previewCounts['brands'], (int)$previewCounts['products'], (int)$previewCounts['ezpages'])); ?>
        <?= llmstxt_h(sprintf(LLMSTXT_ADMIN_PREVIEW_SIZE, number_format((float)llmstxt_strlen($preview)))); ?></p>
     <pre class="llmstxt-preview"><?= llmstxt_h($preview); ?></pre>
 <?php } ?>

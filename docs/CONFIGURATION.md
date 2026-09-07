@@ -58,8 +58,9 @@ like. That request performs the same check.
 | Product order | sort | **sort** (the product sort order, then name), **newest**, **bestsellers**, **name**, **viewed**. |
 | Show prices | true | The base price in the default currency. Specials and tax aren't applied. |
 | Description length | 160 | Characters per line. The meta-tag description is used when written; otherwise the start of the body text with HTML removed. |
+| List brands | true | Manufacturers with at least one enabled product, each linked to its product listing with a count. A brand whose products all sit in hidden or excluded categories is left out. |
 | List EZ-Pages | true | Published pages that appear in the header, a sidebox, the footer or the table of contents. External-link pages point where they point. |
-| Sitemap address | empty | Left empty, a `sitemap.xml` at the root is linked automatically when one exists. |
+| Sitemap address | empty | Left empty, a `sitemap.xml` at the root is linked automatically when one exists. A `robots.txt` at the root is linked the same way; there is no setting for it. |
 | Language | empty | Two-letter code. Empty uses the store default. |
 | Also publish llms-full.txt | false | A second, longer file with complete descriptions and model numbers, linked from `llms.txt`. |
 | Full description length | 1200 | Characters per item in `llms-full.txt`. |
