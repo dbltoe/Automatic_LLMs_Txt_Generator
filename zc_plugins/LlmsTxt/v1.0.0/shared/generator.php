@@ -58,6 +58,26 @@ define('LLMSTXT_CHECK_INTERVAL', 900);
  */
 define('LLMSTXT_LOCK_TTL', 120);
 
+/**
+ * Fire a notifier event when Zen Cart's notifier is present, and do nothing
+ * when it is not (a CLI harness, or a request too early for observers).
+ *
+ * These are the extension points other plugins may use; the Pro edition of
+ * this plugin is one. $param2 is passed by reference, as Zen Cart's own
+ * notify() does, so an observer can change it.
+ *
+ * @param string $event
+ * @param mixed  $param1
+ * @param mixed  $param2
+ */
+function llmstxt_notify($event, $param1 = [], &$param2 = null)
+{
+    global $zco_notifier;
+    if (isset($zco_notifier) && is_object($zco_notifier) && method_exists($zco_notifier, 'notify')) {
+        $zco_notifier->notify($event, $param1, $param2);
+    }
+}
+
 /* ------------------------------------------------------------------ *
  * Settings
  * ------------------------------------------------------------------ */
@@ -900,7 +920,7 @@ function llmstxt_collect($db, $settings = null)
         'language_id' => $languageId,
         // Configuration values are stored with HTML entities on some releases
         // ("Stoke &amp; Trent"), and this is a text file, not an HTML page.
-        'store_name' => llmstxt_text(llmstxt_cfg('STORE_NAME', 'Online Store')),
+        'store_name' => llmstxt_store_name(),
         'base_url' => llmstxt_catalog_base(),
         'currency' => llmstxt_default_currency($db),
         'currency_code' => (string)llmstxt_cfg('DEFAULT_CURRENCY', ''),
@@ -931,7 +951,28 @@ function llmstxt_collect($db, $settings = null)
         $data['ezpages'] = llmstxt_read_ezpages($db, $languageId);
     }
 
+    // Extension point: an observer may add to or change anything collected.
+    llmstxt_notify('NOTIFY_LLMSTXT_COLLECT_END', $settings, $data);
+
     return $data;
+}
+
+/**
+ * The store name for the H1. Configuration values can be stored with HTML
+ * entities ("Stoke &amp; Trent"), and this is a text file, so they are
+ * decoded. A store that has not set its name yet (the first build runs at
+ * install time) gets its host name rather than an empty heading.
+ *
+ * @return string
+ */
+function llmstxt_store_name()
+{
+    $name = llmstxt_text(llmstxt_cfg('STORE_NAME', ''));
+    if ($name !== '') {
+        return $name;
+    }
+    $host = (string)parse_url(llmstxt_catalog_base(), PHP_URL_HOST);
+    return $host !== '' ? $host : 'Online Store';
 }
 
 /**
@@ -1067,6 +1108,10 @@ function llmstxt_render(array $data, $full = false)
         }
         $out[] = '';
     }
+
+    // Extension point: $out is the list of lines so far. The marker comment
+    // is added afterwards so it always closes the file.
+    llmstxt_notify('NOTIFY_LLMSTXT_RENDER_END', ['full' => $full, 'data' => $data], $out);
 
     $out[] = '<!-- ' . LLMSTXT_MARKER . ' ' . LLMSTXT_VERSION . ' on ' . gmdate('Y-m-d H:i') . ' UTC -->';
 
@@ -1400,6 +1445,10 @@ function llmstxt_publish($db, $reason = 'manual', $takeover = false)
     llmstxt_write_state($state);
 
     $result['counts'] = $built['counts'];
+
+    // Extension point: a build has just been published (or failed to be).
+    llmstxt_notify('NOTIFY_LLMSTXT_PUBLISHED', ['reason' => (string)$reason, 'takeover' => (bool)$takeover], $result);
+
     return $result;
 }
 
@@ -1519,14 +1568,19 @@ function llmstxt_serve($db, $full = false)
     }
 
     if (is_file($cache)) {
-        return ['status' => 200, 'body' => (string)file_get_contents($cache)];
+        $response = ['status' => 200, 'body' => (string)file_get_contents($cache)];
+    } else {
+        // The cache directory could not be written; build for this request alone.
+        try {
+            $built = llmstxt_build($db, $settings);
+            $response = ['status' => 200, 'body' => $full ? (string)$built['full'] : $built['llms']];
+        } catch (Throwable $e) {
+            $response = ['status' => 500, 'body' => ''];
+        }
     }
 
-    // The cache directory could not be written; build for this request alone.
-    try {
-        $built = llmstxt_build($db, $settings);
-        return ['status' => 200, 'body' => $full ? (string)$built['full'] : $built['llms']];
-    } catch (Throwable $e) {
-        return ['status' => 500, 'body' => ''];
-    }
+    // Extension point: the file is about to be sent to a visitor.
+    llmstxt_notify('NOTIFY_LLMSTXT_SERVE', ['full' => $full, 'status' => $response['status']]);
+
+    return $response;
 }
