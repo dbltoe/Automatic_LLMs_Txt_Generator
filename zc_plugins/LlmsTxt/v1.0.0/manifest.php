@@ -24,7 +24,7 @@ $llmstxtGithubUrl = 'https://github.com/dbltoe/LLMs_Txt_Generator';
  * v1.5.8, v2.0 and v2.1 a later edit reaches nobody who has already installed.
  * An empty string renders no link at all, which is right until a thread exists.
  */
-$llmstxtForumUrl = '';
+$llmstxtForumUrl = 'https://www.zen-cart.com/threads/207327#post-1347041';
 
 $llmstxtGap = '6px';
 $llmstxtLinks =
