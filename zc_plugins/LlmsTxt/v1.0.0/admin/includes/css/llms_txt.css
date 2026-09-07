@@ -1,0 +1,25 @@
+/*
+ * LLMs.txt Generator -- admin page styling.
+ *
+ * Linked by admin/includes/admin_html_head.php for the page whose basename is
+ * "llms_txt", on every supported release. Nothing here leaks onto any other
+ * admin page.
+ */
+.llmstxt-page { font-size: 1.2rem; }
+.llmstxt-page h1 { margin: 0 0 .25em; }
+.llmstxt-page .llmstxt-lead { color: #555; margin: 0 0 1.25em; }
+.llmstxt-page table.llmstxt-status { width: 100%; max-width: 60rem; border-collapse: collapse; margin: 0 0 1.5em; }
+.llmstxt-page table.llmstxt-status th,
+.llmstxt-page table.llmstxt-status td { text-align: left; vertical-align: top; padding: .45em .65em; border-bottom: 1px solid #ddd; font-size: 1.2rem; }
+.llmstxt-page table.llmstxt-status th { width: 14rem; font-weight: 600; white-space: nowrap; }
+.llmstxt-page .llmstxt-ok { color: #1e7b34; font-weight: 600; }
+.llmstxt-page .llmstxt-warn { color: #9a5b00; font-weight: 600; }
+.llmstxt-page .llmstxt-bad { color: #b03a37; font-weight: 600; }
+.llmstxt-page .llmstxt-actions form { display: inline-block; margin: 0 .5em .5em 0; }
+.llmstxt-page .llmstxt-actions .btn { font-size: 1.2rem; }
+.llmstxt-page pre.llmstxt-preview,
+.llmstxt-page pre.llmstxt-snippet { background: #f6f8fa; border: 1px solid #d8dee4; border-radius: 6px; padding: .85rem 1rem; overflow: auto; font-size: 1.05rem; line-height: 1.45; white-space: pre; }
+.llmstxt-page pre.llmstxt-preview { max-height: 32rem; }
+.llmstxt-page code { font-size: 1.05rem; }
+.llmstxt-page .llmstxt-note { background: #f6f8fa; border-left: 4px solid #0969da; padding: .7em 1em; margin: 0 0 1.25em; max-width: 60rem; }
+.llmstxt-page .llmstxt-note p:last-child { margin-bottom: 0; }

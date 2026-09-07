@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLMs.txt Generator &mdash; Read Me</title>
+<style>
+:root{
+  --bg:#ffffff; --fg:#1f2328; --muted:#57606a; --rule:#d8dee4;
+  --panel:#f6f8fa; --accent:#0969da; --warn-bg:#fff8c5; --warn-br:#d4a72c;
+  --code-bg:#f0f2f4;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0d1117; --fg:#e6edf3; --muted:#9198a1; --rule:#30363d;
+    --panel:#161b22; --accent:#4493f8; --warn-bg:#2d2200; --warn-br:#9e6a03;
+    --code-bg:#161b22;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+     font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:52rem;margin:0 auto;padding:2rem 1.25rem 5rem}
+header{border-bottom:1px solid var(--rule);padding-bottom:1.25rem;margin-bottom:1.5rem}
+h1{font-size:1.75rem;margin:0 0 .3rem}
+.tagline{color:var(--muted);margin:0}
+.meta{color:var(--muted);font-size:.875rem;margin:.75rem 0 0}
+.meta a{color:var(--accent)}
+h2{font-size:1.25rem;margin:2.5rem 0 .75rem;padding-top:1.25rem;border-top:1px solid var(--rule)}
+h3{font-size:1.02rem;margin:1.75rem 0 .5rem}
+p,ul,ol{margin:0 0 1rem}
+ul,ol{padding-left:1.4rem}
+li{margin:.3rem 0}
+a{color:var(--accent)}
+code{background:var(--code-bg);padding:.12em .38em;border-radius:4px;
+     font:.87em/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:var(--panel);border:1px solid var(--rule);border-radius:6px;
+    padding:.85rem 1rem;overflow-x:auto;margin:0 0 1rem}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;margin:0 0 1.25rem;font-size:.94rem;display:block;overflow-x:auto}
+th,td{border:1px solid var(--rule);padding:.45rem .65rem;text-align:left;vertical-align:top}
+th{background:var(--panel);white-space:nowrap}
+td:first-child{white-space:nowrap}
+.note{background:var(--panel);border-left:4px solid var(--accent);
+      border-radius:0 6px 6px 0;padding:.8rem 1rem;margin:0 0 1.25rem}
+.warn{background:var(--warn-bg);border-left:4px solid var(--warn-br);
+      border-radius:0 6px 6px 0;padding:.8rem 1rem;margin:0 0 1.25rem}
+.note p:last-child,.warn p:last-child{margin-bottom:0}
+nav{background:var(--panel);border:1px solid var(--rule);border-radius:6px;
+    padding:.9rem 1rem;margin:0 0 1.5rem}
+nav p{margin:0 0 .4rem;font-weight:600;font-size:.9rem}
+nav ul{margin:0;padding-left:1.2rem;columns:2;column-gap:2rem}
+nav li{margin:.15rem 0;font-size:.92rem;break-inside:avoid;page-break-inside:avoid}
+footer{margin-top:3rem;padding-top:1.25rem;border-top:1px solid var(--rule);
+       color:var(--muted);font-size:.875rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>LLMs.txt Generator</h1>
+  <p class="tagline">Publish an llms.txt for your store: the short Markdown guide that AI assistants read to understand a website, built from your own catalog and kept current on its own.</p>
+  <p class="meta">
+    By My Zen Cart Host (dbltoe) &nbsp;&middot;&nbsp;
+    Version 1.0.0 &nbsp;&middot;&nbsp; Zen Cart v1.5.8 &ndash; v3.0.0 &nbsp;&middot;&nbsp;
+    PHP 7.4 &ndash; 8.5 &nbsp;&middot;&nbsp; GPL-2.0 &nbsp;&middot;&nbsp;
+    <a href="https://github.com/dbltoe/LLMs_Txt_Generator" target="_blank" rel="noopener noreferrer">github.com/dbltoe/LLMs_Txt_Generator</a>
+  </p>
+</header>
+
+<nav>
+  <p>On this page</p>
+  <ul>
+    <li><a href="#what">What it does</a></li>
+    <li><a href="#install">Installing</a></li>
+    <li><a href="#quickstart">Quick start</a></li>
+    <li><a href="#publish">Two ways to publish</a></li>
+    <li><a href="#rebuild">When it rebuilds</a></li>
+    <li><a href="#settings">Settings</a></li>
+    <li><a href="#tools">The Tools page</a></li>
+    <li><a href="#existing">If you already have an llms.txt</a></li>
+    <li><a href="#seo">SEO URL plugins</a></li>
+    <li><a href="#robots">robots.txt</a></li>
+    <li><a href="#translating">Translating</a></li>
+    <li><a href="#upgrade">Upgrading</a></li>
+    <li><a href="#uninstall">Uninstalling</a></li>
+    <li><a href="#trouble">Troubleshooting</a></li>
+  </ul>
+</nav>
+
+<h2 id="what">What it does</h2>
+
+<p>An <code>llms.txt</code> file is to AI assistants what <code>sitemap.xml</code> is to search engines: a plain file at the root of your site that says what the site is and where the important pages are, in Markdown, following the convention at <a href="https://llmstxt.org/" target="_blank" rel="noopener noreferrer">llmstxt.org</a>. This plugin writes one for your store from what is already in Zen Cart, and keeps it current.</p>
+
+<p>The file it produces looks like this:</p>
+
+<pre><code># Acme Widgets
+
+&gt; Acme Widgets sells replacement parts and tools for vintage kitchen
+&gt; mixers, shipping from Texas to the US and Canada.
+
+- [Website](https://www.example.com/)
+- Prices are in: USD
+- [Sitemap](https://www.example.com/sitemap.xml)
+
+## Shopping information
+
+- [Shipping and Returns](https://www.example.com/index.php?main_page=shippinginfo)
+- [Privacy Notice](https://www.example.com/index.php?main_page=privacy)
+- [Conditions of Use](https://www.example.com/index.php?main_page=conditions)
+- [Contact Us](https://www.example.com/index.php?main_page=contact_us)
+
+## Categories
+
+- [Mixer Parts](https://www.example.com/index.php?main_page=index&amp;cPath=1): Gears, gaskets and beaters for every model since 1937.
+- [Mixer Parts &gt; Gaskets](https://www.example.com/index.php?main_page=index&amp;cPath=1_4)
+
+## Products
+
+- [Planetary Gear, Model K](https://www.example.com/index.php?main_page=product_info&amp;products_id=12): Bronze replacement gear for the Model K. Fits 1948 to 1962. ($24.95)
+
+## More pages
+
+- [About Us](https://www.example.com/index.php?main_page=page&amp;id=3)
+</code></pre>
+
+<p>Every part of that comes from somewhere you already maintain: the store name, the shipping and policy pages, the category tree, enabled products with their meta-tag or body descriptions and base prices, and your published EZ-Pages. The one thing worth writing by hand is the summary in the blockquote, because it's the first sentence an assistant reads. There is a setting for it.</p>
+
+<p>Optionally it also produces <code>llms-full.txt</code>, the same sections with complete descriptions, for assistants that want the detail.</p>
+
+<h2 id="install">Installing</h2>
+
+<ol>
+  <li>Upload the <code>zc_plugins/LlmsTxt/</code> directory so it lands at <code>&lt;your store root&gt;/zc_plugins/LlmsTxt/v1.0.0/</code>. Nothing goes anywhere else: no files in <code>admin/</code>, <code>includes/</code> or your template.</li>
+  <li>In your admin, go to <strong>Modules &rarr; Plugin Manager</strong>, select <strong>LLMs.txt Generator</strong> and press <strong>Install</strong>.</li>
+</ol>
+
+<p>The installer creates a configuration group under <strong>Configuration &rarr; LLMs.txt Generator</strong>, adds <strong>LLMs.txt Generator</strong> to the <strong>Tools</strong> menu, and writes a first <code>llms.txt</code> at the store root straight away if it can. If the root isn't writable it says so and the Tools page explains the alternative.</p>
+
+<div class="note">
+<p><strong>If your store is a git checkout of Zen Cart:</strong> <code>zc_plugins/.gitignore</code> uses a deny-all rule with an allowlist, so add <code>!LlmsTxt/</code> and <code>!LlmsTxt/**</code> to it or git won't see the plugin. This doesn't affect the plugin working.</p>
+</div>
+
+<h2 id="quickstart">Quick start</h2>
+
+<ol>
+  <li>Open <strong>Configuration &rarr; LLMs.txt Generator</strong> and write one or two sentences in <strong>Store summary</strong>: what you sell and who it's for.</li>
+  <li>Open <strong>Tools &rarr; LLMs.txt Generator</strong>. The status table says whether the file is present and the preview shows exactly what will be published. Press <strong>Regenerate now</strong>.</li>
+  <li>Open <code>https://your-store/llms.txt</code> in a browser. That's what an assistant will read.</li>
+</ol>
+
+<p>That's all a typical store needs. The defaults list every reachable category, the first 200 products in their sort order with prices, the standard information pages, and your EZ-Pages, and they rebuild whenever the catalog changes.</p>
+
+<h2 id="publish">Two ways to publish</h2>
+
+<p>The <strong>Publish as</strong> setting decides where the file comes from.</p>
+
+<table>
+<tr><th>Setting</th><th>What happens</th><th>Needs</th></tr>
+<tr><td>file</td><td>A real <code>llms.txt</code> is written at the store root, next to <code>robots.txt</code>. This is the default and works with no other setup.</td><td>The store root writable by the web server. It usually is on a cPanel host.</td></tr>
+<tr><td>dynamic</td><td>The file is served live by the storefront page <code>index.php?main_page=llms_txt</code>. Nothing is written at the root.</td><td>Three lines in <code>.htaccess</code> so that <code>/llms.txt</code> reaches that page. The Tools page shows them.</td></tr>
+<tr><td>both</td><td>The file is written, and the live page stays available as a fallback.</td><td>Both of the above.</td></tr>
+</table>
+
+<p>The live page exists whenever the plugin is enabled, whatever this setting says, so you can always look at <code>index.php?main_page=llms_txt</code> to see the current output. It keeps a rendered copy in the store's <code>cache/</code> directory and rebuilds it on the same rules as the file, so a crawler never waits for a build.</p>
+
+<h3>The rewrite rule</h3>
+
+<p>For <strong>dynamic</strong> (or as a fallback with <strong>both</strong>), add these lines to the <code>.htaccess</code> at your store root, after <code>RewriteEngine On</code> if you already have one:</p>
+
+<pre><code>RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^llms\.txt$ index.php?main_page=llms_txt [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^llms-full\.txt$ index.php?main_page=llms_txt&amp;full=1 [L]
+</code></pre>
+
+<p>The <code>!-f</code> condition means a real file at the root always wins, so switching between the modes later needs no change to these lines. If your store lives in a subdirectory, the rule still works because <code>.htaccess</code> rules are relative to their own directory.</p>
+
+<h2 id="rebuild">When it rebuilds</h2>
+
+<p>The <strong>Rebuild</strong> setting is what you asked for when you asked for a file that stays current without anybody remembering to press a button.</p>
+
+<table>
+<tr><th>Setting</th><th>Rebuilds when</th></tr>
+<tr><td>change</td><td>A product, category or EZ-Page is saved in the admin. The storefront also compares a fingerprint of the catalog (counts and last-modified times) once every fifteen minutes and rebuilds if it has moved, which catches deletions and status changes made from listings. This is the default.</td></tr>
+<tr><td>daily / weekly / monthly</td><td>That long after the previous build, and also after an admin save.</td></tr>
+<tr><td>manual</td><td>Only when you press <strong>Regenerate now</strong> on the Tools page.</td></tr>
+</table>
+
+<p>Two things are true for every setting: changing any setting in the group triggers a rebuild, and the actual work happens on the next <em>storefront</em> visit rather than in the admin, at most once every fifteen minutes. An admin save only sets a flag, so saving a product is as fast as it ever was. If nobody visits the storefront, nobody needs a fresh file either.</p>
+
+<p>Zen Cart has no scheduler of its own, which is why the storefront does this. If you would rather drive it from a real cron job, request <code>index.php?main_page=llms_txt</code> from cron with <code>curl</code> or <code>wget</code>; that request performs the same check.</p>
+
+<h2 id="settings">Settings</h2>
+
+<p>All under <strong>Configuration &rarr; LLMs.txt Generator</strong>.</p>
+
+<table>
+<tr><th>Setting</th><th>Default</th><th>Notes</th></tr>
+<tr><td>Enable LLMs.txt</td><td>true</td><td>Off: the live page answers 404 and no file is written or updated. A file already at the root is left as it is.</td></tr>
+<tr><td>Publish as</td><td>file</td><td>See <a href="#publish">Two ways to publish</a>.</td></tr>
+<tr><td>Rebuild</td><td>change</td><td>See <a href="#rebuild">When it rebuilds</a>.</td></tr>
+<tr><td>Store summary</td><td>empty</td><td>The blockquote. Write this one. Left empty, "<em>Store Name</em> is an online store." is used.</td></tr>
+<tr><td>Additional notes</td><td>empty</td><td>Paragraphs after the summary: where you ship, delivery times, minimum orders. Markdown allowed, passed through as written.</td></tr>
+<tr><td>Information pages</td><td>shippinginfo, privacy, conditions, contact_us, site_map</td><td>Page names, comma-separated, in order. Built-in pages get a label automatically; give your own after a colon: <code>about_us:About Our Company</code>. Empty drops the section.</td></tr>
+<tr><td>List categories</td><td>true</td><td>Each category as "Parent &gt; Child" with its description. Disabled categories, and everything beneath them, are skipped.</td></tr>
+<tr><td>Category depth</td><td>0</td><td>0 lists every level; 1 lists top-level categories only; and so on.</td></tr>
+<tr><td>Exclude categories</td><td>empty</td><td>Category ids to leave out along with their subcategories and every product whose master category is one of them. Handy for a gift-certificate or clearance category.</td></tr>
+<tr><td>List products</td><td>true</td><td>Only enabled products whose master category is reachable.</td></tr>
+<tr><td>Maximum products</td><td>200</td><td>0 means all. The order setting decides which products make the cut.</td></tr>
+<tr><td>Product order</td><td>sort</td><td>sort (the product sort order, then name), newest, bestsellers, name, viewed.</td></tr>
+<tr><td>Show prices</td><td>true</td><td>The base price in the default currency. Specials and tax are not applied.</td></tr>
+<tr><td>Description length</td><td>160</td><td>Characters per line. The meta-tag description is used when written; otherwise the start of the body text with HTML removed.</td></tr>
+<tr><td>List EZ-Pages</td><td>true</td><td>Published pages that appear in the header, a sidebox, the footer or the table of contents. External-link pages point where they point.</td></tr>
+<tr><td>Sitemap address</td><td>empty</td><td>Left empty, a <code>sitemap.xml</code> at the root is linked automatically when one exists.</td></tr>
+<tr><td>Language</td><td>empty</td><td>Two-letter code. Empty uses the store default.</td></tr>
+<tr><td>Also publish llms-full.txt</td><td>false</td><td>A second, longer file with complete descriptions and model numbers, linked from llms.txt.</td></tr>
+<tr><td>Full description length</td><td>1200</td><td>Characters per item in llms-full.txt.</td></tr>
+</table>
+
+<h2 id="tools">The Tools page</h2>
+
+<p><strong>Tools &rarr; LLMs.txt Generator</strong> shows, in one table: whether the plugin is enabled, how it publishes, when it rebuilds, whether the file at the root is present and was written by this plugin, when the last build ran and what it found, whether a rebuild is pending and why, and whether the cache directory is writable. Below that:</p>
+
+<ul>
+  <li><strong>Regenerate now</strong> builds and publishes immediately.</li>
+  <li><strong>Replace the existing file</strong> appears only when an <code>llms.txt</code> that this plugin did not write is at the root. See the next section.</li>
+  <li><strong>Remove the generated files</strong> deletes <code>llms.txt</code> and <code>llms-full.txt</code> from the root, if this plugin wrote them.</li>
+  <li><strong>Settings</strong>, <strong>Open the live page</strong> and <strong>Open /llms.txt</strong> go where they say.</li>
+</ul>
+
+<p>The preview at the bottom is built fresh every time the page loads, from the current catalog and settings, so it always shows what the next build will publish.</p>
+
+<h2 id="existing">If you already have an llms.txt</h2>
+
+<p>A hand-written <code>llms.txt</code> at the store root is never overwritten. The plugin recognizes its own files by a marker line at the end and by the hash it recorded when it wrote them; anything else is left alone, the Tools page says so, and the automatic rebuilds skip the file until you decide. Press <strong>Replace the existing file</strong> to let the generated one take over, or switch <strong>Publish as</strong> to <strong>dynamic</strong> and keep your file, since a real file wins over the rewrite rule.</p>
+
+<h2 id="seo">SEO URL plugins</h2>
+
+<p>When the file is built from the storefront, which is where every automatic rebuild happens, links are made with <code>zen_href_link()</code>, so an SEO URL plugin shapes them exactly as it shapes every other link on the site. A build triggered from the admin (Regenerate, or the install) uses plain <code>index.php?main_page=</code> addresses, because the admin's own link function builds admin addresses. Both forms resolve on a store with such a plugin, and the next storefront rebuild replaces the plain ones.</p>
+
+<h2 id="robots">robots.txt</h2>
+
+<p>Nothing needs adding. If your <code>robots.txt</code> disallows <code>index.php</code> or query strings for some crawlers, they may not be allowed to fetch the live page; a real file at the root is unaffected by such rules, which is one reason <strong>file</strong> is the default.</p>
+
+<h2 id="translating">Translating</h2>
+
+<p>The words that appear in the generated file (section headings, "Website", "Prices are in", the labels for the built-in information pages) come from two language files, one per side, because the file can be built from either:</p>
+
+<pre><code>catalog/includes/languages/english/extra_definitions/lang.llms_txt.php
+admin/includes/languages/english/extra_definitions/lang.llms_txt_names.php
+</code></pre>
+
+<p>Copy each into the matching directory for your language inside this plugin and translate the values. The admin page's own strings are in <code>admin/includes/languages/english/lang.llms_txt.php</code>. Every file uses the array format that Zen Cart v1.5.8 through v3.0.0 understand.</p>
+
+<h2 id="upgrade">Upgrading</h2>
+
+<p>Upload the new version directory beside the old one and press <strong>Upgrade</strong> in Plugin Manager. Settings you have changed are kept; only labels, help text and defaults for new settings are refreshed. Then remove the old version directory.</p>
+
+<h2 id="uninstall">Uninstalling</h2>
+
+<p>Plugin Manager's <strong>Uninstall</strong> removes the configuration group, the menu entries and the cache. The generated <code>llms.txt</code> at the store root is left in place, on purpose: it's a public file that assistants may already know about, and it keeps working without the plugin. Press <strong>Remove the generated files</strong> on the Tools page first if you want it gone.</p>
+
+<h2 id="trouble">Troubleshooting</h2>
+
+<h3>The Tools page says the store root isn't writable</h3>
+<p>The web server can't create files in the directory that holds <code>index.php</code>. On a cPanel host with suPHP or LSAPI it normally can; on other hosts make the directory group-writable or ask your host. Or switch <strong>Publish as</strong> to <strong>dynamic</strong> and add the rewrite rule: no file is needed then.</p>
+
+<h3>/llms.txt gives a 404 in dynamic mode</h3>
+<p>The rewrite rule is missing or sits before <code>RewriteEngine On</code>. Check that <code>index.php?main_page=llms_txt</code> works first; if it does, the rule is the only thing left.</p>
+
+<h3>The file never updates</h3>
+<p>Check <strong>Rebuild</strong> isn't <strong>manual</strong>, then look at the <strong>Pending</strong> row on the Tools page. If it says a rebuild is due, the storefront simply has not been visited since; open any storefront page and look again. If the <strong>Cache directory</strong> row is red, the plugin can't record when it last checked, so make <code>cache/</code> writable, which Zen Cart needs anyway.</p>
+
+<h3>A product is missing</h3>
+<p>It's disabled, its master category or one of that category's parents is disabled or excluded, it has no name in the chosen language, or it fell outside <strong>Maximum products</strong> under the chosen order. The preview on the Tools page reflects all of those immediately.</p>
+
+<h3>The links are index.php addresses although the store uses SEO URLs</h3>
+<p>The last build ran from the admin. See <a href="#seo">SEO URL plugins</a>; the next storefront rebuild fixes it, or press nothing and wait for one.</p>
+
+<footer>
+  <p>LLMs.txt Generator v1.0.0 &middot; GPL-2.0 &middot; My Zen Cart Host (dbltoe) &middot; <a href="https://github.com/dbltoe/LLMs_Txt_Generator" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+</footer>
+
+</div>
+</body>
+</html>
