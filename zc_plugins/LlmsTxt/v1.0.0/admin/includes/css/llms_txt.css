@@ -1,5 +1,5 @@
 /*
- * LLMs.txt Generator -- admin page styling.
+ * Automatic LLMs.txt Generator -- admin page styling.
  *
  * Linked by admin/includes/admin_html_head.php for the page whose basename is
  * "llms_txt", on every supported release. Nothing here leaks onto any other

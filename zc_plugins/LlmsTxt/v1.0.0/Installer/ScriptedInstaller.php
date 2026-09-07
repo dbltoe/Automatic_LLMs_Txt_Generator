@@ -1,6 +1,6 @@
 <?php
 /**
- * LLMs.txt Generator -- Plugin Manager installer.
+ * Automatic LLMs.txt Generator -- Plugin Manager installer.
  *
  * Limited to the installer API that exists on every supported Zen Cart
  * release (v1.5.8 -> v3.0.0):
@@ -25,7 +25,7 @@ class ScriptedInstaller extends ScriptedInstallBase
     /**
      * Title of the configuration group this plugin owns.
      */
-    public const CONFIG_GROUP_TITLE = 'LLMs.txt Generator';
+    public const CONFIG_GROUP_TITLE = 'Automatic LLMs.txt Generator';
 
     /**
      * admin_pages.page_key values this plugin owns.
@@ -414,13 +414,13 @@ class ScriptedInstaller extends ScriptedInstallBase
             return;
         }
         if (!empty($result['wrote'])) {
-            $messageStack->add_session('LLMs.txt Generator: written ' . implode(', ', array_map('basename', $result['wrote'])) . ' at the store root.', 'success');
+            $messageStack->add_session('Automatic LLMs.txt Generator: written ' . implode(', ', array_map('basename', $result['wrote'])) . ' at the store root.', 'success');
         }
         foreach ((array)$result['skipped'] as $note) {
-            $messageStack->add_session('LLMs.txt Generator: ' . $note, 'caution');
+            $messageStack->add_session('Automatic LLMs.txt Generator: ' . $note, 'caution');
         }
         if (!$result['ok'] && $result['error'] !== '') {
-            $messageStack->add_session('LLMs.txt Generator: ' . $result['error'] . ' The Tools page explains the options.', 'warning');
+            $messageStack->add_session('Automatic LLMs.txt Generator: ' . $result['error'] . ' The Tools page explains the options.', 'warning');
         }
     }
 

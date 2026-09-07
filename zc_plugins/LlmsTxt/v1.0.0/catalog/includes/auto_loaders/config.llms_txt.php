@@ -1,6 +1,6 @@
 <?php
 /**
- * LLMs.txt Generator -- storefront autoloader configuration.
+ * Automatic LLMs.txt Generator -- storefront autoloader configuration.
  *
  * Breakpoint 178 runs after `init_observers.php` (175) and before
  * `init_header.php` (180). By then the database, the configuration constants,

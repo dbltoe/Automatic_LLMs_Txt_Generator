@@ -1,6 +1,6 @@
 <?php
 /**
- * LLMs.txt Generator -- the storefront page that serves the file.
+ * Automatic LLMs.txt Generator -- the storefront page that serves the file.
  *
  * Reached as index.php?main_page=llms_txt (or, with the rewrite rule from the
  * readme, as /llms.txt). Zen Cart's PageLoader finds a plugin's

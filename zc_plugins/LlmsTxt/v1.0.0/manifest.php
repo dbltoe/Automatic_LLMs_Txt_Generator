@@ -1,6 +1,6 @@
 <?php
 /**
- * LLMs.txt Generator -- plugin manifest.
+ * Automatic LLMs.txt Generator -- plugin manifest.
  *
  * What is in pluginDescription is shown in the Plugin Manager's info panel as
  * raw HTML on every release from v1.5.8 to v3.0.0, so the Read Me and GitHub
@@ -45,7 +45,7 @@ if ($llmstxtForumUrl !== '') {
 
 return [
     'pluginVersion' => 'v1.0.0',
-    'pluginName' => 'LLMs.txt Generator',
+    'pluginName' => 'Automatic LLMs.txt Generator',
     'pluginDescription' =>
         'Publishes an llms.txt file for your store, the Markdown guide that AI assistants '
         . 'read to understand a website: your store name and summary, shipping and policy pages, '

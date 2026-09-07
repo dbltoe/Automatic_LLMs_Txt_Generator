@@ -1,13 +1,13 @@
 <?php
 /**
- * LLMs.txt Generator -- admin page strings (English).
+ * Automatic LLMs.txt Generator -- admin page strings (English).
  *
  * @package  LlmsTxt
  * @license  http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  */
 
 $define = [
-    'HEADING_TITLE' => 'LLMs.txt Generator',
+    'HEADING_TITLE' => 'Automatic LLMs.txt Generator',
 
     'LLMSTXT_ADMIN_LEAD' => 'llms.txt is a short Markdown guide to your store that AI assistants read, the way search engines read sitemap.xml. This page shows what\'s published, rebuilds it on request, and previews the current output. The wording comes from your settings under Configuration.',
 

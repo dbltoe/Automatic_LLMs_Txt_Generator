@@ -1,6 +1,6 @@
 <?php
 /**
- * LLMs.txt Generator -- admin menu labels and generated-file wording (English).
+ * Automatic LLMs.txt Generator -- admin menu labels and generated-file wording (English).
  *
  * The BOX_* entries are the `language_key` values the installer writes into
  * admin_pages, so they must exist before the menus are drawn -- hence
@@ -17,8 +17,8 @@
  */
 
 $define = [
-    'BOX_CONFIGURATION_LLMS_TXT' => 'LLMs.txt Generator',
-    'BOX_TOOLS_LLMS_TXT' => 'LLMs.txt Generator',
+    'BOX_CONFIGURATION_LLMS_TXT' => 'Automatic LLMs.txt Generator',
+    'BOX_TOOLS_LLMS_TXT' => 'Automatic LLMs.txt Generator',
 
     'LLMSTXT_DEFAULT_SUMMARY' => '%s is an online store.',
     'LLMSTXT_HEADING_INFO' => 'Shopping information',

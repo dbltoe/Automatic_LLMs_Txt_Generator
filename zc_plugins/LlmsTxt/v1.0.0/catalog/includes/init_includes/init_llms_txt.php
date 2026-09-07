@@ -1,6 +1,6 @@
 <?php
 /**
- * LLMs.txt Generator -- storefront maintenance of a published file.
+ * Automatic LLMs.txt Generator -- storefront maintenance of a published file.
  *
  * Loaded at autoload breakpoint 178 on every storefront request. All it does
  * is ask the generator whether a published llms.txt is due for a rebuild,

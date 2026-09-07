@@ -1,4 +1,4 @@
-LLMs.txt Generator -- changelog
+Automatic LLMs.txt Generator -- changelog
 ===============================
 
 v1.0.0

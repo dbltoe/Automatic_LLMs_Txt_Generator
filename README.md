@@ -1,4 +1,4 @@
-# LLMs.txt Generator
+# Automatic LLMs.txt Generator
 
 An encapsulated Zen Cart plugin that publishes an `llms.txt` for your store:
 the short Markdown guide that AI assistants read to understand a website, the
@@ -86,7 +86,7 @@ fast as it was.
 ## Installing
 
 Upload `zc_plugins/LlmsTxt/` to your store root, then **Modules → Plugin
-Manager → LLMs.txt Generator → Install**. Full steps in
+Manager → Automatic LLMs.txt Generator → Install**. Full steps in
 [docs/INSTALL.md](docs/INSTALL.md); every setting in
 [docs/CONFIGURATION.md](docs/CONFIGURATION.md); the shipped
 [readme.html](readme.html) covers both and is linked from Plugin Manager.

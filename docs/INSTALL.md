@@ -1,4 +1,4 @@
-# Installing LLMs.txt Generator
+# Installing Automatic LLMs.txt Generator
 
 Applies to Zen Cart v1.5.8 and later, including v2.x and the v3.0.0 development
 branch. PHP 7.4 through 8.5.
@@ -35,28 +35,28 @@ later.
 
 1. Log in to your Zen Cart admin.
 2. Go to **Modules → Plugin Manager**.
-3. Find **LLMs.txt Generator** and click **Install**.
+3. Find **Automatic LLMs.txt Generator** and click **Install**.
 
 > Selecting the plugin shows an info panel on the right. Alongside the
 > description and the **Install / Uninstall / Disable** buttons you'll find
 > **Read Me** and **GitHub** buttons. Read Me opens the full documentation, and
 > both work whether or not the plugin is installed.
 
-The installer creates a configuration group, adds **LLMs.txt Generator** to
+The installer creates a configuration group, adds **Automatic LLMs.txt Generator** to
 the Tools menu, and writes a first `llms.txt` at the store root straight away
 if it can. If the store root isn't writable it says so, and the Tools page
 explains the alternative.
 
 ## 3. Write the summary
 
-Open **Configuration → LLMs.txt Generator** and fill in **Store summary**: one
+Open **Configuration → Automatic LLMs.txt Generator** and fill in **Store summary**: one
 or two sentences on what you sell and who it's for. This is the first thing an
 AI assistant reads, and it's the one part of the file that can't be generated
 from your catalog.
 
 ## 4. Check it
 
-Open **Tools → LLMs.txt Generator**. The status table says whether the file is
+Open **Tools → Automatic LLMs.txt Generator**. The status table says whether the file is
 present, and the preview shows what's published. Then open
 `https://your-store/llms.txt` in a browser.
 

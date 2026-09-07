@@ -1,6 +1,6 @@
 <?php
 /**
- * LLMs.txt Generator -- admin observer that flags catalog changes.
+ * Automatic LLMs.txt Generator -- admin observer that flags catalog changes.
  *
  * Auto-loaded by includes/init_includes/init_observers.php, which every
  * supported release runs for the admin as well as the storefront, from this

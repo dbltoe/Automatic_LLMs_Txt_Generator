@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LLMs.txt Generator &mdash; Read Me</title>
+<title>Automatic LLMs.txt Generator &mdash; Read Me</title>
 <style>
 :root{
   --bg:#ffffff; --fg:#1f2328; --muted:#57606a; --rule:#d8dee4;
@@ -59,7 +59,7 @@ footer{margin-top:3rem;padding-top:1.25rem;border-top:1px solid var(--rule);
 <div class="wrap">
 
 <header>
-  <h1>LLMs.txt Generator</h1>
+  <h1>Automatic LLMs.txt Generator</h1>
   <p class="tagline">Publish an llms.txt for your store: the short Markdown guide that AI assistants read to understand a website, built from your own catalog and kept current on its own.</p>
   <p class="meta">
     By My Zen Cart Host (dbltoe) &nbsp;&middot;&nbsp;
@@ -140,10 +140,10 @@ footer{margin-top:3rem;padding-top:1.25rem;border-top:1px solid var(--rule);
 
 <ol>
   <li>Upload the <code>zc_plugins/LlmsTxt/</code> directory so it lands at <code>&lt;your store root&gt;/zc_plugins/LlmsTxt/v1.0.0/</code>. Nothing goes anywhere else: no files in <code>admin/</code>, <code>includes/</code> or your template.</li>
-  <li>In your admin, go to <strong>Modules &rarr; Plugin Manager</strong>, select <strong>LLMs.txt Generator</strong> and press <strong>Install</strong>.</li>
+  <li>In your admin, go to <strong>Modules &rarr; Plugin Manager</strong>, select <strong>Automatic LLMs.txt Generator</strong> and press <strong>Install</strong>.</li>
 </ol>
 
-<p>The installer creates a configuration group under <strong>Configuration &rarr; LLMs.txt Generator</strong>, adds <strong>LLMs.txt Generator</strong> to the <strong>Tools</strong> menu, and writes a first <code>llms.txt</code> at the store root straight away if it can. If the root isn't writable it says so and the Tools page explains the alternative.</p>
+<p>The installer creates a configuration group under <strong>Configuration &rarr; Automatic LLMs.txt Generator</strong>, adds <strong>Automatic LLMs.txt Generator</strong> to the <strong>Tools</strong> menu, and writes a first <code>llms.txt</code> at the store root straight away if it can. If the root isn't writable it says so and the Tools page explains the alternative.</p>
 
 <div class="note">
 <p><strong>If your store is a git checkout of Zen Cart:</strong> <code>zc_plugins/.gitignore</code> uses a deny-all rule with an allowlist, so add <code>!LlmsTxt/</code> and <code>!LlmsTxt/**</code> to it or git won't see the plugin. This doesn't affect the plugin working.</p>
@@ -152,8 +152,8 @@ footer{margin-top:3rem;padding-top:1.25rem;border-top:1px solid var(--rule);
 <h2 id="quickstart">Quick start</h2>
 
 <ol>
-  <li>Open <strong>Configuration &rarr; LLMs.txt Generator</strong> and write one or two sentences in <strong>Store summary</strong>: what you sell and who it's for.</li>
-  <li>Open <strong>Tools &rarr; LLMs.txt Generator</strong>. The status table says whether the file is present and the preview shows exactly what will be published. Press <strong>Regenerate now</strong>.</li>
+  <li>Open <strong>Configuration &rarr; Automatic LLMs.txt Generator</strong> and write one or two sentences in <strong>Store summary</strong>: what you sell and who it's for.</li>
+  <li>Open <strong>Tools &rarr; Automatic LLMs.txt Generator</strong>. The status table says whether the file is present and the preview shows exactly what will be published. Press <strong>Regenerate now</strong>.</li>
   <li>Open <code>https://your-store/llms.txt</code> in a browser. That's what an assistant will read.</li>
 </ol>
 
@@ -202,7 +202,7 @@ RewriteRule ^llms-full\.txt$ index.php?main_page=llms_txt&amp;full=1 [L]
 
 <h2 id="settings">Settings</h2>
 
-<p>All under <strong>Configuration &rarr; LLMs.txt Generator</strong>.</p>
+<p>All under <strong>Configuration &rarr; Automatic LLMs.txt Generator</strong>.</p>
 
 <table>
 <tr><th>Setting</th><th>Default</th><th>Notes</th></tr>
@@ -230,7 +230,7 @@ RewriteRule ^llms-full\.txt$ index.php?main_page=llms_txt&amp;full=1 [L]
 
 <h2 id="tools">The Tools page</h2>
 
-<p><strong>Tools &rarr; LLMs.txt Generator</strong> shows, in one table: whether the plugin is enabled, how it publishes, when it rebuilds, whether the file at the root is present and was written by this plugin, when the last build ran and what it found, whether a rebuild is pending and why, and whether the cache directory is writable. Below that:</p>
+<p><strong>Tools &rarr; Automatic LLMs.txt Generator</strong> shows, in one table: whether the plugin is enabled, how it publishes, when it rebuilds, whether the file at the root is present and was written by this plugin, when the last build ran and what it found, whether a rebuild is pending and why, and whether the cache directory is writable. Below that:</p>
 
 <ul>
   <li><strong>Regenerate now</strong> builds and publishes immediately.</li>
@@ -289,7 +289,7 @@ admin/includes/languages/english/extra_definitions/lang.llms_txt_names.php
 <p>The last build ran from the admin. See <a href="#seo">SEO URL plugins</a>; the next storefront rebuild fixes it, or press nothing and wait for one.</p>
 
 <footer>
-  <p>LLMs.txt Generator v1.0.0 &middot; GPL-2.0 &middot; My Zen Cart Host (dbltoe) &middot; <a href="https://github.com/dbltoe/Automatic_LLMs_Txt_Generator" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+  <p>Automatic LLMs.txt Generator v1.0.0 &middot; GPL-2.0 &middot; My Zen Cart Host (dbltoe) &middot; <a href="https://github.com/dbltoe/Automatic_LLMs_Txt_Generator" target="_blank" rel="noopener noreferrer">GitHub</a></p>
 </footer>
 
 </div>

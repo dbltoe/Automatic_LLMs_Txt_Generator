@@ -1,6 +1,6 @@
 <?php
 /**
- * LLMs.txt Generator -- wording used in the generated file (English), storefront side.
+ * Automatic LLMs.txt Generator -- wording used in the generated file (English), storefront side.
  *
  * The `lang.` prefix plus an array return is the language format understood by
  * Zen Cart v1.5.8 through v3.0.0. To translate, copy this file to

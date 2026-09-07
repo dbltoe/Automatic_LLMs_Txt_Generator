@@ -1,6 +1,6 @@
 <?php
 /**
- * LLMs.txt Generator -- storefront page name.
+ * Automatic LLMs.txt Generator -- storefront page name.
  *
  * `extra_datafiles` is read by every supported release (v1.5.8 -> v3.0.0). A
  * root-level `filenames.php` is only picked up from v2.2.0, so it is not used.

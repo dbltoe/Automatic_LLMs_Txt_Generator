@@ -1,6 +1,6 @@
 <?php
 /**
- * LLMs.txt Generator -- admin page name.
+ * Automatic LLMs.txt Generator -- admin page name.
  *
  * The same constant, and the same value, as the storefront side: the admin
  * page is `admin/llms_txt.php` (reached as `index.php?cmd=llms_txt`) and the

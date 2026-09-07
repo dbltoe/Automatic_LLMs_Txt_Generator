@@ -1,7 +1,7 @@
-# Configuring LLMs.txt Generator
+# Configuring Automatic LLMs.txt Generator
 
-All settings are under **Configuration → LLMs.txt Generator**. The Tools page
-(**Tools → LLMs.txt Generator**) shows the result of them.
+All settings are under **Configuration → Automatic LLMs.txt Generator**. The Tools page
+(**Tools → Automatic LLMs.txt Generator**) shows the result of them.
 
 ---
 

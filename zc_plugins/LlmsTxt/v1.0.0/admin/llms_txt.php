@@ -1,6 +1,6 @@
 <?php
 /**
- * LLMs.txt Generator -- admin page (Tools -> LLMs.txt Generator).
+ * Automatic LLMs.txt Generator -- admin page (Tools -> Automatic LLMs.txt Generator).
  *
  * Reached as admin/index.php?cmd=llms_txt, the routing Zen Cart has used for
  * plugin admin pages since v1.5.7. Access is governed by the `toolsLlmsTxt`
@@ -87,7 +87,7 @@ if ($action !== '') {
                 if ($result['wrote'] !== []) {
                     $messageStack->add_session(sprintf(LLMSTXT_ADMIN_SUCCESS_WROTE, implode(', ', array_map('basename', $result['wrote']))), 'success');
                 }
-                zen_record_admin_activity('LLMs.txt Generator: rebuilt from the admin (' . $action . ').', 'info');
+                zen_record_admin_activity('Automatic LLMs.txt Generator: rebuilt from the admin (' . $action . ').', 'info');
             } else {
                 $messageStack->add_session(sprintf(LLMSTXT_ADMIN_ERROR_BUILD, $result['error']), 'error');
             }
@@ -102,7 +102,7 @@ if ($action !== '') {
                 $messageStack->add_session(LLMSTXT_ADMIN_NOTHING_REMOVED, 'caution');
             } else {
                 $messageStack->add_session(sprintf(LLMSTXT_ADMIN_SUCCESS_REMOVED, implode(', ', $removed)), 'success');
-                zen_record_admin_activity('LLMs.txt Generator: removed ' . implode(', ', $removed) . ' from the store root.', 'warning');
+                zen_record_admin_activity('Automatic LLMs.txt Generator: removed ' . implode(', ', $removed) . ' from the store root.', 'warning');
             }
             break;
     }
@@ -157,7 +157,7 @@ try {
 $configGroup = $db->Execute(
     "SELECT configuration_group_id
        FROM " . TABLE_CONFIGURATION_GROUP . "
-      WHERE configuration_group_title = 'LLMs.txt Generator'
+      WHERE configuration_group_title = 'Automatic LLMs.txt Generator'
       LIMIT 1"
 );
 $settingsUrl = $configGroup->EOF
