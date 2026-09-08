@@ -55,12 +55,11 @@ return [
         . $llmstxtLinks
         . $llmstxtForumLink,
     'pluginAuthor' => 'My Zen Cart Host (dbltoe)',
-    // The Zen Cart Plugins Library id. The library edits this line itself when
-    // a new submission is accepted, so it ships as 0 and the accepted package
-    // carries the real number. Copy that number back here before the next
-    // release: v1.5.8/v2.0/v2.1 never refresh zc_contrib_id on an existing
-    // row, and the "new version available" notice depends on it.
-    'pluginId' => 0,
+    // The Zen Cart Plugins Library id, assigned when v1.0.0 was accepted
+    // (2026-09-08). The "new version available" notice depends on it, and
+    // v1.5.8/v2.0/v2.1 never refresh zc_contrib_id on an existing row, so
+    // it must be right in every release.
+    'pluginId' => 7800,
     'zcVersions' => ['v158', 'v200', 'v210', 'v220', 'v230', 'v300'],
     'changelog' => 'changelog.txt',
     'github_repo' => $llmstxtGithubUrl,
