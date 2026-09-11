@@ -1,6 +1,21 @@
 Automatic LLMs.txt Generator -- changelog
 ===============================
 
+v1.0.1
+------
+- Plugin Manager on Zen Cart 2.x with PHP 8 could fatal on this plugin's row
+  because the build carried a plugin id the zen-cart.com version server did
+  not know. The id is now the one the Plugins Library assigned.
+- Renamed to Automatic LLMs.txt Generator (menu entries, configuration group,
+  file marker). Settings carry over; the configuration group is renamed in
+  place on upgrade.
+- Brands section with product counts, a Robots line when robots.txt exists,
+  and Markdown escaping of names and descriptions.
+- Four notifier events (NOTIFY_LLMSTXT_COLLECT_END, _RENDER_END, _SERVE,
+  _PUBLISHED) for companion plugins; the Pro edition needs this release.
+- A store with no name yet gets its host name as the heading instead of a
+  blank line.
+
 v1.0.0
 ------
 First release.

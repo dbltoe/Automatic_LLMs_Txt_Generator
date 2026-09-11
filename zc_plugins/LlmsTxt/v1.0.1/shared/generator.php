@@ -37,7 +37,7 @@ define('LLMSTXT_GENERATOR_LOADED', true);
  * The version this file ships in. Kept in one place so the readme check can
  * compare it with the directory name and the manifest.
  */
-define('LLMSTXT_VERSION', 'v1.0.0');
+define('LLMSTXT_VERSION', 'v1.0.1');
 
 /**
  * Text placed at the very end of every file this plugin writes, so a file at

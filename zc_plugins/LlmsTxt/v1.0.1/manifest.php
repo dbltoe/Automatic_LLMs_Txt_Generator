@@ -15,7 +15,7 @@
  * @license  http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  */
 
-$llmstxtPluginDir = 'zc_plugins/LlmsTxt/v1.0.0/';
+$llmstxtPluginDir = 'zc_plugins/LlmsTxt/v1.0.1/';
 $llmstxtReadmeUrl = (defined('DIR_WS_CATALOG') ? DIR_WS_CATALOG : '/') . $llmstxtPluginDir . 'readme.html';
 $llmstxtGithubUrl = 'https://github.com/dbltoe/Automatic_LLMs_Txt_Generator';
 
@@ -44,7 +44,7 @@ if ($llmstxtForumUrl !== '') {
 }
 
 return [
-    'pluginVersion' => 'v1.0.0',
+    'pluginVersion' => 'v1.0.1',
     'pluginName' => 'Automatic LLMs.txt Generator',
     'pluginDescription' =>
         'Publishes an llms.txt file for your store, the Markdown guide that AI assistants '
@@ -55,11 +55,13 @@ return [
         . $llmstxtLinks
         . $llmstxtForumLink,
     'pluginAuthor' => 'My Zen Cart Host (dbltoe)',
-    // The Zen Cart Plugins Library id, assigned when v1.0.0 was accepted
-    // (2026-09-08). The "new version available" notice depends on it, and
+    // The Zen Cart Plugins Library id: the value the Library itself wrote into
+    // the manifest of the accepted v1.0.0 package. NOT the number in the
+    // download URL (7800 there is the release id): an id the version server
+    // does not know makes Plugin Manager fatal on Zen Cart 2.x with PHP 8.
     // v1.5.8/v2.0/v2.1 never refresh zc_contrib_id on an existing row, so
-    // it must be right in every release.
-    'pluginId' => 7800,
+    // this must be right in every release.
+    'pluginId' => 2257,
     'zcVersions' => ['v158', 'v200', 'v210', 'v220', 'v230', 'v300'],
     'changelog' => 'changelog.txt',
     'github_repo' => $llmstxtGithubUrl,

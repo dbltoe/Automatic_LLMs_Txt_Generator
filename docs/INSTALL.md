@@ -16,7 +16,7 @@ zc_plugins/LlmsTxt/
 Upload it so it lands at:
 
 ```
-<your store root>/zc_plugins/LlmsTxt/v1.0.0/
+<your store root>/zc_plugins/LlmsTxt/v1.0.1/
 ```
 
 That directory should contain `manifest.php`, `readme.html`, `changelog.txt`,
