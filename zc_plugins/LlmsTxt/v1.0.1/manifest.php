@@ -33,15 +33,11 @@ $llmstxtLinks =
     . ' class="btn btn-primary" role="button" style="margin:0 ' . $llmstxtGap . ' 0 0">Read Me</a>'
     . '<a href="' . $llmstxtGithubUrl . '" target="_blank" rel="noopener noreferrer"'
     . ' class="btn btn-primary" role="button" style="margin:0 ' . $llmstxtGap . ' 0 0">GitHub</a>'
+    . ($llmstxtForumUrl !== ''
+        ? '<a href="' . $llmstxtForumUrl . '" target="_blank" rel="noopener noreferrer"'
+          . ' class="btn btn-primary" role="button" style="margin:0 ' . $llmstxtGap . ' 0 0">Forum Support Thread</a>'
+        : '')
     . '</div>';
-
-$llmstxtForumLink = '';
-if ($llmstxtForumUrl !== '') {
-    $llmstxtForumLink =
-        '<div style="margin:8px 0 0;padding:0 0 0 ' . $llmstxtGap . '">'
-        . '<a href="' . $llmstxtForumUrl . '" target="_blank" rel="noopener noreferrer">Forum Support Thread</a>'
-        . '</div>';
-}
 
 return [
     'pluginVersion' => 'v1.0.1',
@@ -52,8 +48,7 @@ return [
         . 'categories, brands, products with prices, and EZ-Pages. Served live at /llms.txt or written as '
         . 'a real file at the store root, rebuilt automatically when the catalog changes, on a '
         . 'schedule, or only when you ask.'
-        . $llmstxtLinks
-        . $llmstxtForumLink,
+        . $llmstxtLinks,
     'pluginAuthor' => 'My Zen Cart Host (dbltoe)',
     // The Zen Cart Plugins Library id: the value the Library itself wrote into
     // the manifest of the accepted v1.0.0 package. NOT the number in the
