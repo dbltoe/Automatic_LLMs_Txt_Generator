@@ -15,7 +15,7 @@
  * @license  http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  */
 
-$llmstxtPluginDir = 'zc_plugins/LlmsTxt/v1.0.1/';
+$llmstxtPluginDir = 'zc_plugins/LlmsTxt/v1.0.2/';
 $llmstxtReadmeUrl = (defined('DIR_WS_CATALOG') ? DIR_WS_CATALOG : '/') . $llmstxtPluginDir . 'readme.html';
 $llmstxtGithubUrl = 'https://github.com/dbltoe/Automatic_LLMs_Txt_Generator';
 
@@ -40,7 +40,7 @@ $llmstxtLinks =
     . '</div>';
 
 return [
-    'pluginVersion' => 'v1.0.1',
+    'pluginVersion' => 'v1.0.2',
     'pluginName' => 'Automatic LLMs.txt Generator',
     'pluginDescription' =>
         'Publishes an llms.txt file for your store, the Markdown guide that AI assistants '
@@ -50,13 +50,16 @@ return [
         . 'schedule, or only when you ask.'
         . $llmstxtLinks,
     'pluginAuthor' => 'My Zen Cart Host (dbltoe)',
-    // The Zen Cart Plugins Library id: the value the Library itself wrote into
-    // the manifest of the accepted v1.0.0 package. NOT the number in the
-    // download URL (7800 there is the release id): an id the version server
+    // The Zen Cart Plugins Library's Plugin ID for this plugin: 2455, assigned
+    // when the Library renumbered it on 2026-10-06. NOT the number in the
+    // download URL (7800 there is a release id), and not 2257, the ID used
+    // through v1.0.1, which also belonged to an older plugin (Finnish Language
+    // pack), so update checks reported that plugin. An ID the version server
     // does not know makes Plugin Manager fatal on Zen Cart 2.x with PHP 8.
+    // Keep it a bare integer: the Library's stamper can't read a quoted value.
     // v1.5.8/v2.0/v2.1 never refresh zc_contrib_id on an existing row, so
     // this must be right in every release.
-    'pluginId' => 2257,
+    'pluginId' => 2455,
     'zcVersions' => ['v158', 'v200', 'v210', 'v220', 'v230', 'v300'],
     'changelog' => 'changelog.txt',
     'github_repo' => $llmstxtGithubUrl,
