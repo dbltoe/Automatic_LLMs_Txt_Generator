@@ -100,11 +100,16 @@ plugin works on a store whose root is not.
 
 ### `pluginDescription` renders as raw HTML in Plugin Manager
 
-The Read Me and GitHub buttons in the info panel come from `manifest.php`.
-On v1.5.8, v2.0 and v2.1 that description is written by the INSERT that
-creates the `plugin_control` row and never refreshed, so nothing
-state-dependent is placed there. The same applies to the forum thread URL:
-it must be set before the first release.
+The ReadMe, Settings, Forum Thread and GitHub buttons in the info panel
+come from `manifest.php`. On v2.2 and later Plugin Manager rewrites that
+description from the manifest on every visit. On v1.5.8, v2.0 and v2.1 it's
+written by the INSERT that creates the `plugin_control` row and Plugin
+Manager never refreshes it, so the installer saves it again at Install,
+Upgrade and Uninstall. That's what lets the Settings button, which the
+manifest builds from the registered Configuration page, appear once the
+plugin is installed and go away after Uninstall. The forum thread URL still
+has to be set before the first release, since a store that never runs the
+installer again never sees a change to it.
 
 ---
 

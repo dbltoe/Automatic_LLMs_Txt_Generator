@@ -16,7 +16,7 @@ zc_plugins/LlmsTxt/
 Upload it so it lands at:
 
 ```
-<your store root>/zc_plugins/LlmsTxt/v1.0.2/
+<your store root>/zc_plugins/LlmsTxt/v1.0.3/
 ```
 
 That directory should contain `manifest.php`, `readme.html`, `changelog.txt`,
@@ -39,8 +39,9 @@ later.
 
 > Selecting the plugin shows an info panel on the right. Alongside the
 > description and the **Install / Uninstall / Disable** buttons you'll find
-> **Read Me** and **GitHub** buttons. Read Me opens the full documentation, and
-> both work whether or not the plugin is installed.
+> **ReadMe**, **Forum Thread** and **GitHub** buttons, plus **Settings** once
+> the plugin is installed. ReadMe opens the full documentation and works
+> whether or not the plugin is installed.
 
 The installer creates a configuration group, adds **Automatic LLMs.txt Generator** to
 the Tools menu, and writes a first `llms.txt` at the store root straight away

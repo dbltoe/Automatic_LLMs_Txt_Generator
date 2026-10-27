@@ -23,6 +23,11 @@ use Zencart\PluginSupport\ScriptedInstaller as ScriptedInstallBase;
 class ScriptedInstaller extends ScriptedInstallBase
 {
     /**
+     * plugin_control.unique_key: the zc_plugins directory name.
+     */
+    public const PLUGIN_KEY = 'LlmsTxt';
+
+    /**
      * Title of the configuration group this plugin owns.
      */
     public const CONFIG_GROUP_TITLE = 'Automatic LLMs.txt Generator';
@@ -51,6 +56,7 @@ class ScriptedInstaller extends ScriptedInstallBase
         }
         $this->llmstxtRegisterAdminPages($groupId);
         $this->llmstxtFirstBuild();
+        $this->llmstxtRefreshPluginDescription();
 
         return true;
     }
@@ -79,10 +85,46 @@ class ScriptedInstaller extends ScriptedInstallBase
             );
         }
 
+        $this->llmstxtRefreshPluginDescription();
+
         return true;
     }
 
     /* ------------------------------------------------------------------ */
+
+    /**
+     * Save the manifest's description again, now that the Settings page has
+     * been registered (install, upgrade) or removed (uninstall).
+     *
+     * Needed on v1.5.8, v2.0 and v2.1, which store plugin_control.description
+     * only when Plugin Manager first sees the plugin, before Install, so the
+     * Settings button (built in manifest.php from the registered admin page)
+     * would never appear there. v2.2 and later rewrite the description from
+     * the manifest on every Plugin Manager visit, so this is a no-op there in
+     * effect. Core's own install/uninstall step changes only status and
+     * version, so this description stays.
+     *
+     * executeUpgrade() re-runs executeInstall(), so an upgrade reaches this too.
+     *
+     * @return bool
+     */
+    protected function llmstxtRefreshPluginDescription()
+    {
+        if (!defined('TABLE_PLUGIN_CONTROL')) {
+            return true;
+        }
+        $manifest = require dirname(__DIR__) . '/manifest.php';
+        if (!is_array($manifest) || !isset($manifest['pluginDescription'])) {
+            return true;
+        }
+
+        return $this->executeInstallerSql(
+            "UPDATE " . TABLE_PLUGIN_CONTROL . "
+                SET description = '" . $this->dbConn->prepare_input($manifest['pluginDescription']) . "'
+              WHERE unique_key = '" . $this->dbConn->prepare_input(self::PLUGIN_KEY) . "'
+              LIMIT 1"
+        );
+    }
 
     protected function llmstxtGetConfigGroupId()
     {

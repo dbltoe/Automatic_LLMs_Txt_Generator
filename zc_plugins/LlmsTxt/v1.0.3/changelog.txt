@@ -1,6 +1,21 @@
 Automatic LLMs.txt Generator -- changelog
 ===============================
 
+v1.0.3
+------
+Plugin Manager only. Nothing changes in the llms.txt file or in the
+settings.
+- New Settings button in Plugin Manager. Once the plugin is installed, its
+  info panel has a Settings button that opens Configuration > Automatic
+  LLMs.txt Generator. It isn't shown before Install or after Uninstall. The
+  installer saves the panel again at Install, Upgrade and Uninstall,
+  because v1.5.8, v2.0 and v2.1 otherwise keep the panel they saw first.
+- The buttons are one row: ReadMe | Settings | Forum Thread | GitHub ("Read
+  Me" is now "ReadMe", "Forum Support Thread" is now "Forum Thread"), a
+  little narrower so all four fit on one line from a 1366px window up.
+- Upgrading: put the v1.0.3 folder beside the old one, click Upgrade in
+  Admin > Modules > Plugin Manager, then remove the old folder.
+
 v1.0.2
 ------
 - The Plugin ID is now 2455, the ID the Zen Cart Plugins Library assigned on
