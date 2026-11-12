@@ -3,6 +3,24 @@
 All notable changes to this project are recorded here. This project follows
 [Semantic Versioning](https://semver.org/).
 
+## [1.0.4] — 2026-11-11
+
+Nothing changes in the llms.txt file or in the settings.
+
+### Changed
+
+- **License: GNU General Public License, version 3** (was version 2).
+- **readme.html is replaced by README.md.** The ReadMe button in Plugin
+  Manager opens it inside the admin, for superusers only, in its own window
+  (`index.php?cmd=llms_txt_readme`); it is no longer a public file under
+  `zc_plugins/`. The same README.md is at the root of the download.
+
+### Upgrading
+
+- Put the `v1.0.4` folder beside the old one, click **Upgrade** in
+  Admin > Modules > Plugin Manager, then remove the old folder. Your settings
+  are kept.
+
 ## [1.0.3] — 2026-10-27
 
 Plugin Manager only. Nothing changes in the llms.txt file or in the settings.
@@ -92,6 +110,7 @@ First release.
   snippet.
 - One codebase for Zen Cart v1.5.8 through v3.0.0 on PHP 7.4 through 8.5.
 
+[1.0.4]: https://github.com/dbltoe/Automatic_LLMs_Txt_Generator/releases/tag/v1.0.4
 [1.0.3]: https://github.com/dbltoe/Automatic_LLMs_Txt_Generator/releases/tag/v1.0.3
 [1.0.2]: https://github.com/dbltoe/Automatic_LLMs_Txt_Generator/releases/tag/v1.0.2
 [1.0.1]: https://github.com/dbltoe/Automatic_LLMs_Txt_Generator/releases/tag/v1.0.1

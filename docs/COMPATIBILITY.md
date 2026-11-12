@@ -101,7 +101,9 @@ plugin works on a store whose root is not.
 ### `pluginDescription` renders as raw HTML in Plugin Manager
 
 The ReadMe, Settings, Forum Thread and GitHub buttons in the info panel
-come from `manifest.php`. On v2.2 and later Plugin Manager rewrites that
+come from `manifest.php`. ReadMe opens the plugin's README.md through its
+own admin page (`index.php?cmd=llms_txt_readme`), for superusers only, in
+its own window. On v2.2 and later Plugin Manager rewrites that
 description from the manifest on every visit. On v1.5.8, v2.0 and v2.1 it's
 written by the INSERT that creates the `plugin_control` row and Plugin
 Manager never refreshes it, so the installer saves it again at Install,

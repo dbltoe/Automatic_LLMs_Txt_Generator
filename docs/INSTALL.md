@@ -16,10 +16,10 @@ zc_plugins/LlmsTxt/
 Upload it so it lands at:
 
 ```
-<your store root>/zc_plugins/LlmsTxt/v1.0.3/
+<your store root>/zc_plugins/LlmsTxt/v1.0.4/
 ```
 
-That directory should contain `manifest.php`, `readme.html`, `changelog.txt`,
+That directory should contain `manifest.php`, `README.md`, `changelog.txt`,
 and the `Installer/`, `admin/`, `catalog/` and `shared/` sub-directories.
 
 Nothing goes anywhere else. The plugin doesn't drop files into your `admin/`,
@@ -40,8 +40,10 @@ later.
 > Selecting the plugin shows an info panel on the right. Alongside the
 > description and the **Install / Uninstall / Disable** buttons you'll find
 > **ReadMe**, **Forum Thread** and **GitHub** buttons, plus **Settings** once
-> the plugin is installed. ReadMe opens the full documentation and works
-> whether or not the plugin is installed.
+> the plugin is installed. ReadMe opens the full documentation (README.md)
+> inside the admin, in its own window. It's shown to superusers and works
+> once the plugin is installed; before that, the same README.md is at the
+> root of the download.
 
 The installer creates a configuration group, adds **Automatic LLMs.txt Generator** to
 the Tools menu, and writes a first `llms.txt` at the store root straight away
