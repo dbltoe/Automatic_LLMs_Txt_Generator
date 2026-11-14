@@ -12,7 +12,7 @@
  * and thrown away.
  *
  * @package  LlmsTxt
- * @license  https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
+ * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License v2.0
  */
 
 require 'includes/application_top.php';

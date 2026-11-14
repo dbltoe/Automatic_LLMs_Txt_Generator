@@ -1,6 +1,6 @@
 # Automatic LLMs.txt Generator
 
-Version 1.0.4 · Zen Cart 1.5.8 through 3.0.0 · PHP 7.4 through 8.5 · GPL v3 · by My Zen Cart Host (dbltoe)
+Version 1.0.4 · Zen Cart 1.5.8 through 3.0.0 · PHP 7.4 through 8.5 · GPL v2 · by My Zen Cart Host (dbltoe)
 
 Publish an llms.txt for your store: the short Markdown guide that AI assistants read to understand a website, built from your own catalog and kept current on its own.
 
@@ -176,7 +176,7 @@ Copy each into the matching directory for your language inside this plugin and t
 
 Upload the new version directory beside the old one and press **Upgrade** in Plugin Manager. Settings you have changed are kept; only labels, help text and defaults for new settings are refreshed. Then remove the old version directory.
 
-**Version 1.0.4** moves the plugin to the GNU General Public License, version 3, and replaces the old HTML readme with this guide: the ReadMe button in Plugin Manager now opens it inside the admin, for superusers, in its own window. Nothing changes in the llms.txt file or in the settings.
+**Version 1.0.4** replaces the old HTML readme with this guide: the ReadMe button in Plugin Manager now opens it inside the admin, for superusers, in its own window. Nothing changes in the llms.txt file or in the settings.
 
 ## Uninstalling
 
@@ -210,8 +210,8 @@ Source, issues and releases are on GitHub (https://github.com/dbltoe/Automatic_L
 
 ## Changelog
 
-See `CHANGELOG.md`. Version 1.0.4 moves the plugin to the GNU General Public License, version 3, and replaces the old HTML readme with this guide, opened from the ReadMe button in Plugin Manager.
+See `CHANGELOG.md`. Version 1.0.4 replaces the old HTML readme with this guide, opened from the ReadMe button in Plugin Manager.
 
 ## License
 
-Automatic LLMs.txt Generator is free software under the GNU General Public License, version 3 (https://www.gnu.org/licenses/gpl-3.0.html); the full text is in `LICENSE`. Copyright © 2026 My Zen Cart Host (dbltoe).
+Automatic LLMs.txt Generator is free software under the GNU General Public License, version 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html); the full text is in `LICENSE`. Copyright © 2026 My Zen Cart Host (dbltoe).

@@ -9,7 +9,6 @@ Nothing changes in the llms.txt file or in the settings.
 
 ### Changed
 
-- **License: GNU General Public License, version 3** (was version 2).
 - **readme.html is replaced by README.md.** The ReadMe button in Plugin
   Manager opens it inside the admin, for superusers only, in its own window
   (`index.php?cmd=llms_txt_readme`); it is no longer a public file under

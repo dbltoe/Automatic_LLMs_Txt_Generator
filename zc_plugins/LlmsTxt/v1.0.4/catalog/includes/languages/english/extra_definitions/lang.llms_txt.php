@@ -11,7 +11,7 @@
  * %s in LLMSTXT_DEFAULT_SUMMARY is the store name.
  *
  * @package  LlmsTxt
- * @license  https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
+ * @license  https://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License v2.0
  */
 
 $define = [
